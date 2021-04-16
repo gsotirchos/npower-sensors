@@ -107,6 +107,20 @@ pip3 install catkin_pkg
 Append the following to `~/.bashrc`:
 ``` bash
 ...
+# source ~/.bash_extra
+if [[ -f ~/.bash_extra ]]; then
+    source ~/.bash_extra
+fi
+```
+
+then add the following in `~/.bash_extra`:
+``` bash
+# shortcuts
+macbook="george@192.168.1.1"
+
+# append to history
+export PROMPT_COMMAND="history -a"
+
 # ros environment
 if [[ -f /opt/ros/noetic/setup.bash ]]; then
     source /opt/ros/noetic/setup.bash
