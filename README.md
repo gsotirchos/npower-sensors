@@ -1,6 +1,5 @@
 # Ubuntu 20.04 Raspberry Pi manual setup
-Edit `/boot/firmware/config.txt` and add the following two lines in 
-order to:
+Edit `/boot/firmware/config.txt` in order to:
  1. Rotate virtual frame buffers (display) by 180 degrees, and
  2. Create an additional I2C bus to utilize pins 27 and 28.
 ```
@@ -78,13 +77,38 @@ Reboot
 Install command line tools and shared C library (and documentation) for 
 interacting with Linux GPIO device:
 ``` bash
-sudo apt install gpiod gpiod libgpiod-doc
+sudo apt install gpiod gpiod libgpiod-dev libgpiod-doc
 ```
 
 ## I2C
 Install command line tools and libraries for reading from I2C:
 ``` bash
 sudo apt install i2c-tools python3-smbus
+```
+
+## Compiling
+Install clang, CMake, and Ninja:
+``` bash
+sudo apt install clang cmake ninja-build
+```
+and configure environment variables in `~/.bashr` so that CMake will use 
+Ninja with clang.
+First append the following to `~/.bashrc`:
+``` bash
+...
+# source ~/.bash_extra
+if [[ -f ~/.bash_extra ]]; then
+    source ~/.bash_extra
+fi
+```
+then add the following in `~/.bash_extra`:
+
+``` bash
+...
+# use clang and Ninja with CMake
+export CC="/usr/bin/clang"
+export CXX="/usr/bin/clang++"
+export CMAKE_GENERATOR="Ninja"
 ```
 
 <!--
@@ -104,16 +128,7 @@ sudo apt install python3-pip
 pip3 install catkin_pkg
 ```
 
-Append the following to `~/.bashrc`:
-``` bash
-...
-# source ~/.bash_extra
-if [[ -f ~/.bash_extra ]]; then
-    source ~/.bash_extra
-fi
-```
-
-then add the following in `~/.bash_extra`:
+Add the following in `~/.bash_extra`:
 ``` bash
 # shortcuts
 macbook="george@192.168.1.1"
