@@ -74,10 +74,9 @@ sudo usermod -a -G gpio npower
 Reboot
 
 ## GPIO
-Install command line tools and shared C library (and documentation) for 
-interacting with Linux GPIO device:
+Install command line tools and C library for interacting with Linux GPIO character device:
 ``` bash
-sudo apt install gpiod gpiod libgpiod-dev libgpiod-doc
+sudo apt install gpiod libgpiod-dev
 ```
 
 ## I2C

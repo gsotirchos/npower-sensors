@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(npower_monitor
+project(NPowerMonitor
     VERSION 1.0
     DESCRIPTION "Executables to get sensor measurements for npower app."
     LANGUAGES CXX
@@ -8,49 +8,62 @@ project(npower_monitor
 
 add_compile_options(-Wall -Wextra -pedantic)
 
+include("${PROJECT_SOURCE_DIR}/cmake/CPMdependencies.cmake")
+include("${PROJECT_SOURCE_DIR}/cmake/ManualDependencies.cmake")
 
+
+## targets
 add_executable(demo
-    src/demo.cpp
+    "${PROJECT_SOURCE_DIR}/src/demo.cpp"
 )
 
-add_library(npower_monitor
-    include/steps_monitor.hpp
-    src/steps_monitor.cpp
+add_library(NPowerMonitor
+    "${PROJECT_SOURCE_DIR}/include/steps_monitor.hpp"
+    "${PROJECT_SOURCE_DIR}/src/steps_monitor.cpp"
 )
 
 
-target_include_directories(npower_monitor
+## dependencies
+add_dependencies(NPowerMonitor
+    ina219
+)
+
+
+## includes
+target_include_directories(NPowerMonitor
     PUBLIC
-    include/
+    "${PROJECT_SOURCE_DIR}/include"
 )
 
-# use cxx librares instead of c
-set_target_properties(npower_monitor
-    PROPERTIES
-    IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
-)
-
+## linked libraries
 target_link_libraries(demo
     PRIVATE
-    npower_monitor
+    NPowerMonitor
 )
 
-find_library(GPIOD_LIB gpiodcxx)
-target_link_libraries(npower_monitor
+target_link_libraries(NPowerMonitor
     PRIVATE
-    ${GPIOD_LIB}
+    "${GPIOD_LIB}"
 )
 
 
 ## Tests
-enable_testing()
-
-# GoogleTest downloader by Henry Schreiner:
-# https://github.com/CLIUtils/cmake
-include(cmake/AddGoogleTest.cmake)
-
-add_executable(steps_test
-    tests/steps_test.cpp
+add_executable(StepsTest
+    "${PROJECT_SOURCE_DIR}/tests/steps_test.cpp"
 )
 
-add_gtest(steps_test)
+target_include_directories(StepsTest
+    PRIVATE
+    "${PROJECT_SOURCE_DIR}/include"
+)
+
+target_link_libraries(StepsTest
+    PRIVATE
+    NPowerMonitor
+    gtest
+    gmock
+    gtest_main
+)
+
+enable_testing()
+add_test(StepsTest StepsTest)

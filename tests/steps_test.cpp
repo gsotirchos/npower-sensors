@@ -1,9 +1,10 @@
-#include <steps_monior.hpp>
+#include <gtest/gtest.h>
+#include <steps_monitor.hpp>
 #include <iostream>
 
 using namespace std;
 
-class StepsTest: public ::testing::Test
+class StepsTests: public ::testing::Test {
   protected:
     //...
 
@@ -14,8 +15,8 @@ class StepsTest: public ::testing::Test
     void TearDown() { /*...*/ }
 };
 
-TEST_F(Steps, SomeTest) {
-    EXPECT_TRUE( return True /*...*/);
+TEST_F(StepsTests, SomeTest) {
+    EXPECT_TRUE( /*...*/ true);
 }
 
 int main(int argc, char **argv) {
