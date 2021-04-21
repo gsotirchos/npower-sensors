@@ -1,16 +1,17 @@
-#include <npower_monitor.hpp>
+#include <npower_sensors.hpp>
 #include <iostream>
 
 using namespace std;
 
 int main(int argc, char** argv) {
-    npower_monitor::HallSensor hall_sensor;
+    npower_sensors::HallSensor hall_sensor;
     int value = hall_sensor.readValue();
 
-    cout << value << endl;
+    cout << "hall sensor value: " << value << endl;
 
-    npower_monitor::Wattmeter wattmeter;
+    npower_sensors::Wattmeter wattmeter;
 
+    cout << "wattmeter measurements:" << endl;
     cout << "time_s,bus_voltage_V,supply_voltage_V,shunt_voltage_mV,current_mA,power_mW" << endl;
     cout << wattmeter.voltage() << ","
          << wattmeter.supply_voltage() << ","

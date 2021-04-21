@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
-#include <npower_monitor.hpp>
+#include <npower_sensors.hpp>
 #include <iostream>
 
 using namespace std;
 
-class StepsTests: public ::testing::Test {
+class HallSensorTests: public ::testing::Test {
   protected:
     //...
 
@@ -15,7 +15,7 @@ class StepsTests: public ::testing::Test {
     void TearDown() { /*...*/ }
 };
 
-TEST_F(StepsTests, SomeTest) {
+TEST_F(HallSensorTests, SomeTest) {
     EXPECT_TRUE( /*...*/ true);
 }
 
