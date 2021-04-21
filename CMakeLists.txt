@@ -12,30 +12,32 @@ include("${PROJECT_SOURCE_DIR}/cmake/CPMdependencies.cmake")
 include("${PROJECT_SOURCE_DIR}/cmake/ManualDependencies.cmake")
 
 
-## targets
+### targets ####################################################################
 add_executable(demo
     "${PROJECT_SOURCE_DIR}/src/demo.cpp"
 )
 
 add_library(NPowerMonitor
-    "${PROJECT_SOURCE_DIR}/include/steps_monitor.hpp"
-    "${PROJECT_SOURCE_DIR}/src/steps_monitor.cpp"
+    "${PROJECT_SOURCE_DIR}/include/npower_monitor.hpp"
+    "${PROJECT_SOURCE_DIR}/src/npower_monitor.cpp"
 )
 
 
-## dependencies
+### dependencies ###############################################################
 add_dependencies(NPowerMonitor
-    ina219
+    ina219_PROJECT
 )
 
 
-## includes
+### includes ###################################################################
 target_include_directories(NPowerMonitor
     PUBLIC
     "${PROJECT_SOURCE_DIR}/include"
+    "${ina219_SOURCE_DIR}/src"
 )
 
-## linked libraries
+
+### linked libraries ###########################################################
 target_link_libraries(demo
     PRIVATE
     NPowerMonitor
@@ -44,10 +46,11 @@ target_link_libraries(demo
 target_link_libraries(NPowerMonitor
     PRIVATE
     "${GPIOD_LIB}"
+    ina219
 )
 
 
-## Tests
+### Tests ######################################################################
 add_executable(StepsTest
     "${PROJECT_SOURCE_DIR}/tests/steps_test.cpp"
 )

@@ -1,10 +1,23 @@
-#include <steps_monitor.hpp>
+#include <npower_monitor.hpp>
 
 using namespace std;
+
 using namespace npower_monitor;
 
-// setup GPIO chip and pin access
-Steps::Steps() :
+// setup i2c access for the wattmeter
+class Wattmeter : public INA219 {
+ public:
+   Wattmeter() : INA219(shunt_ohms, max_expected_amps) {
+       configure(RANGE_16V, GAIN_8_320MV, ADC_12BIT, ADC_12BIT);
+   }
+
+ private:
+   static const float shunt_ohms = 0.01;
+   static const float max_expected_amps = 8;
+};
+
+// setup GPIO chip and pin access for the hall sensor
+HallSensor::HallSensor() :
     gpiochip_path{"/dev/gpiochip0"},
     hall_sensor_pin{24}
 {
@@ -23,9 +36,9 @@ Steps::Steps() :
     hall_sensor.request(request_config);
 }
 
-Steps::~Steps() = default;
+HallSensor::~HallSensor() = default;
 
 // method to read current hall sensor value
-int Steps::readValue() const {
+int HallSensor::readValue() const {
     return hall_sensor.get_value();
 }

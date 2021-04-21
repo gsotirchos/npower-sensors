@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <steps_monitor.hpp>
+#include <npower_monitor.hpp>
 #include <iostream>
 
 using namespace std;

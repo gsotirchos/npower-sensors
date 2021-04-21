@@ -1,18 +1,21 @@
-#include <iostream>
 #include <gpiod.hpp>
+#include <ina219.h>
+#include <iostream>
 
 using namespace std;
 
 namespace npower_monitor {
 
-class Steps {
+int echo_somthn();
+
+class HallSensor {
   public:
-    Steps();
+    HallSensor();
 
     // method to read current hall sensor value
     int readValue() const;
 
-    ~Steps();
+    ~HallSensor();
 
   private:
     // GPIO chip's chardev path
