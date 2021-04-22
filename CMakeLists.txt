@@ -23,12 +23,6 @@ add_library(NPowerSensors
 )
 
 
-### dependencies ###############################################################
-add_dependencies(NPowerSensors
-    ina219_PROJECT
-)
-
-
 ### includes ###################################################################
 target_include_directories(NPowerSensors
     PUBLIC

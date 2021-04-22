@@ -4,4 +4,10 @@ include("${CMAKE_SOURCE_DIR}/cmake/AddCPM.cmake")
 CPMAddPackage(
     GITHUB_REPOSITORY google/googletest
     GIT_TAG release-1.10.0
+    OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt"
+)
+
+CPMAddPackage(
+    GITHUB_REPOSITORY 7555G/ina219
+    GIT_TAG devel
 )
