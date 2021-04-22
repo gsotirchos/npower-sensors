@@ -1,11 +1,13 @@
 #include <gpiod.hpp>
 #include <ina219.h>
+
 #include <iostream>
+
 
 using namespace std;
 
-namespace npower_sensors {
 
+namespace npower_sensors {
 
 class HallSensor {
   public:
@@ -34,23 +36,29 @@ class HallSensor {
 
 class Wattmeter : public INA219 {
   public:
+    // configures the ina219 to the DFRobot version
     Wattmeter(
-        float the_shunt_ohms = shunt_ohms,
-        float the_max_expected_amps = max_expected_amps,
-        int the_voltage_range = voltage_range,
-        int the_gain = gain,
-        int the_bus_adc = bus_adc,
-        int the_shunt_adc = shunt_adc
+        float shunt_ohms = the_shunt_ohms,
+        float max_expected_amps = the_max_expected_amps,
+        int i2c_address = the_i2c_address,
+        const char* i2c_bus = the_i2c_bus,
+        int voltage_range = the_voltage_range,
+        int gain = the_gain,
+        int bus_adc = the_bus_adc,
+        int shunt_adc = the_shunt_adc
     );
     ~Wattmeter();
 
   private:
-    static const float shunt_ohms;
-    static const float max_expected_amps;
-    static const int voltage_range;
-    static const int gain;
-    static const int bus_adc;
-    static const int shunt_adc;
+    // parameters for current configuration
+    static const float the_shunt_ohms;
+    static const float the_max_expected_amps;
+    static const int the_i2c_address;
+    static const char* the_i2c_bus;
+    static const int the_voltage_range;
+    static const int the_gain;
+    static const int the_bus_adc;
+    static const int the_shunt_adc;
 };
 
 }

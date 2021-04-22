@@ -1,7 +1,9 @@
 #include <npower_sensors.hpp>
 
-using namespace std;
+#include <iostream>
 
+
+using namespace std;
 using namespace npower_sensors;
 
 
@@ -38,32 +40,39 @@ int HallSensor::readValue() const {
 
 
 // default wattmeter configuration parameters
-const float Wattmeter::shunt_ohms = 0.01;
-const float Wattmeter::max_expected_amps = 8;
-const int Wattmeter::voltage_range = RANGE_16V;
-const int Wattmeter::gain = GAIN_8_320MV;
-const int Wattmeter::bus_adc = ADC_12BIT;
-const int Wattmeter::shunt_adc = ADC_12BIT;
+const float Wattmeter::the_shunt_ohms = 0.01;
+const float Wattmeter::the_max_expected_amps = 8;
+const int Wattmeter::the_i2c_address = 0x40;
+const char* Wattmeter::the_i2c_bus = "/dev/i2c-4";
+const int Wattmeter::the_voltage_range = RANGE_16V;
+const int Wattmeter::the_gain = GAIN_8_320MV;
+const int Wattmeter::the_bus_adc = ADC_12BIT;
+const int Wattmeter::the_shunt_adc = ADC_12BIT;
 
 // setup i2c access for the wattmeter
 Wattmeter::Wattmeter(
-    float the_shunt_ohms,
-    float the_max_expected_amps,
-    int the_voltage_range,
-    int the_gain,
-    int the_bus_adc,
-    int the_shunt_adc
+    float shunt_ohms,
+    float max_expected_amps,
+    int i2c_address,
+    const char* i2c_bus,
+    int voltage_range,
+    int gain,
+    int bus_adc,
+    int shunt_adc
 ) :
     INA219(
-        the_shunt_ohms,
-        the_max_expected_amps
+        shunt_ohms,
+        max_expected_amps,
+        i2c_address,
+        i2c_bus
     )
 {
+    // set measurement parameters
     configure(
-        the_voltage_range,
-        the_gain,
-        the_bus_adc,
-        the_shunt_adc
+        voltage_range,
+        gain,
+        bus_adc,
+        shunt_adc
     );
 }
 
