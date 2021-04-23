@@ -41,13 +41,13 @@ int HallSensor::readValue() const {
 
 // default wattmeter configuration parameters
 const float Wattmeter::the_shunt_ohms = 0.01;
-const float Wattmeter::the_max_expected_amps = 8;
+const float Wattmeter::the_max_expected_amps = 4;
 const int Wattmeter::the_i2c_address = 0x40;
 const char* Wattmeter::the_i2c_bus = "/dev/i2c-4";
 const int Wattmeter::the_voltage_range = RANGE_16V;
-const int Wattmeter::the_gain = GAIN_8_320MV;
+const int Wattmeter::the_gain = GAIN_1_40MV;
 const int Wattmeter::the_bus_adc = ADC_12BIT;
-const int Wattmeter::the_shunt_adc = ADC_12BIT;
+const int Wattmeter::the_shunt_adc = ADC_128SAMP;
 
 // setup i2c access for the wattmeter
 Wattmeter::Wattmeter(
