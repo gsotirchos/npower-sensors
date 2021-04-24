@@ -110,11 +110,21 @@ export CXX="/usr/bin/clang++"
 export CMAKE_GENERATOR="Ninja"
 ```
 
+## Qt
+Install Qt Creator:
+``` bash
+sudo apt install qtcreator qt5-default qtdeclarative5-dev qt5-doc qtbase5-examples qtbase5-doc-html
+```
+
+Install the following required modules:
+``` bash
+sudo apt install qml-module-qtquick-virtualkeyboard
+```
+
+
 <!--
 ## ROS
-Install `ros-noetic-base` according to instructions from:
-http://wiki.ros.org/noetic/Installation/Ubuntu
-and append to `~/.bashrc`:
+Install `ros-noetic-base` according to instructions from: http://wiki.ros.org/noetic/Installation/Ubuntu and append to `~/.bashrc`:
 ``` bash
 ...
 source /opt/ros/noetic/setup.bash"
@@ -129,12 +139,6 @@ pip3 install catkin_pkg
 
 Add the following in `~/.bash_extra`:
 ``` bash
-# shortcuts
-macbook="george@192.168.1.1"
-
-# append to history
-export PROMPT_COMMAND="history -a"
-
 # ros environment
 if [[ -f /opt/ros/noetic/setup.bash ]]; then
     source /opt/ros/noetic/setup.bash
