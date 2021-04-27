@@ -119,7 +119,7 @@ sudo apt install gpiod libgpiod-dev
 ## I2C
 Install command line tools and libraries for reading from I2C:
 ``` bash
-sudo apt install i2c-tools python3-smbus
+sudo apt install i2c-tools # python3-smbus
 ```
 
 ## Compiling
