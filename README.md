@@ -1,12 +1,15 @@
 # Ubuntu 20.04 Raspberry Pi manual setup
 Edit `/boot/firmware/config.txt` in order to:
- 1. Rotate virtual frame buffers (display) by 180 degrees, and
- 2. Create an additional I2C bus to utilize pins 27 and 28.
+ 1. Rotate virtual frame buffers (display) by 180 degrees,
+ 2. Create an additional I2C bus to utilize pins 27 and 28, and
+ 3. Disable bluetooth.
+ 3. Disable rainbow splash on boot.
 ```
 ...
 [pi4]
 lcd_rotate=2
 dtoverlay=i2c-gpio,bus=4,i2c_gpio_delay_us=1,i2c_gpio_sda=5,i2c_gpio_scl=6
+dtoverlay=disable-bt
 ...
 ```
 Then update GRUB:
@@ -21,22 +24,56 @@ After logging into Ubuntu append the following to
 `/system-boot/network-config`):
 ```
 ...
-   wifis:
-       wlan0:
-           optional: true
-           access-points:
-               "WIFI NAME HERE":
-                   password: "PASSWORD HERE"
-           dhcp: true
+network:
+    ethernets:
+        eth0:
+            dhcp4: true
+            optional: true
+    version: 2
+    wifis:
+        wlan0:
+            optional: true
+            access-points:
+                "npower":
+                    password: "00000000"
+                "WIFI_NAME":
+                    password: "WIFI_PASSWORD"
+            dhcp4: true
 ```
-
-Run the following:
+and run the following:
 ``` bash
 sudo netplan --debug try
 sudo netplan --debug generate
 sudo netplan --debug apply
 ```
-Reboot.
+Reboot. This way the pi always connects to a network with SSID: "npower" using a password: "00000000".
+
+
+## Disable USB, Ethernet, and HDMI
+Create the file `/etc/udev/rules.d/99-disable-pci.rules` with the following contents:
+``` udevrules
+ACTION=="add", SUBSYSTEMS=="pci", RUN+="/bin/bash -c 'echo 1 > /sys/bus/pci/devices/0000\:00\:00.0/remove'"
+ACTION=="add", SUBSYSTEMS=="pci", RUN+="/bin/bash -c 'echo 1 > /sys/bus/pci/devices/0000\:01\:00.0/remove'"
+```
+Create the file `/etc/systemd/system/turn_off_hdmi.service` with the following contents:
+``` systemd
+[Unit]
+Description=Turn off HDMI
+After=basic.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart='/usr/bin/tvservice -o'
+
+[Install]
+WantedBy=basic.target
+```
+and enable the service:
+``` bash
+sudo systemctl enable turn_off_hdmi.service
+```
+
 
 ## Names
 ### Change hostname:
@@ -118,7 +155,7 @@ sudo apt install qtcreator qt5-default qtdeclarative5-dev qt5-doc qtbase5-exampl
 
 Install the following required modules:
 ``` bash
-sudo apt install qml-module-qtquick-virtualkeyboard
+sudo apt install qml-module-qtquick-virtualkeyboard qml-module-qtquick-controls2 qml-module-qt-labs-folderlistmodel qtvirtualkeyboard-plugin
 ```
 
 
