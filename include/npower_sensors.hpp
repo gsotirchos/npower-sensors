@@ -4,7 +4,9 @@
 #include "ina219.h"
 
 
-using namespace std;
+using std::string;
+using std::unique_ptr;
+using std::make_unique;
 
 
 namespace npower_sensors {
