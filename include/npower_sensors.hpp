@@ -19,7 +19,7 @@ class HallSensor {
     );
 
     // method to read current hall sensor value
-    int readValue() const;
+    bool readValue() const;
 
     ~HallSensor();
 

@@ -34,7 +34,7 @@ HallSensor::HallSensor(
 HallSensor::~HallSensor() = default;
 
 // method to read current hall sensor value
-int HallSensor::readValue() const {
+bool HallSensor::readValue() const {
     return hall_sensor.get_value();
 }
 
