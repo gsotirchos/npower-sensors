@@ -25,10 +25,10 @@ class HallSensor {
 
   private:
     // GPIO chip's chardev path
-    static const string chip_path;
+    static string const chip_path;
 
     // GPIO pin no. connected to hall sensor data pin
-    static const int pin;
+    static int const pin;
 
     unique_ptr<gpiod::chip> gpiochip;
     struct gpiod::line_request request_config;
@@ -43,7 +43,7 @@ class Wattmeter : public INA219 {
         float shunt_ohms = the_shunt_ohms,
         float max_expected_amps = the_max_expected_amps,
         int i2c_address = the_i2c_address,
-        const char* i2c_bus = the_i2c_bus,
+        char const * i2c_bus = the_i2c_bus,
         int voltage_range = the_voltage_range,
         int gain = the_gain,
         int bus_adc = the_bus_adc,
@@ -53,14 +53,14 @@ class Wattmeter : public INA219 {
 
   private:
     // parameters for current configuration
-    static const float the_shunt_ohms;
-    static const float the_max_expected_amps;
-    static const int the_i2c_address;
-    static const char* the_i2c_bus;
-    static const int the_voltage_range;
-    static const int the_gain;
-    static const int the_bus_adc;
-    static const int the_shunt_adc;
+    static float const the_shunt_ohms;
+    static float const the_max_expected_amps;
+    static int const the_i2c_address;
+    static char const * the_i2c_bus;
+    static int const the_voltage_range;
+    static int const the_gain;
+    static int const the_bus_adc;
+    static int const the_shunt_adc;
 };
 
 }
