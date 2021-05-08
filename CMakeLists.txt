@@ -6,6 +6,8 @@ project(npower_sensors
     LANGUAGES CXX
 )
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 add_compile_options(-Wall -Wextra -pedantic)
 
 include("${PROJECT_SOURCE_DIR}/cmake/CPMdependencies.cmake")
