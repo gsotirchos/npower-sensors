@@ -8,8 +8,8 @@ using namespace npower_sensors;
 
 
 // default gpiochip path and hall sensor pin
-const string HallSensor::chip_path = "/dev/gpiochip0";
-const int HallSensor::pin = 24;
+string const HallSensor::chip_path = "/dev/gpiochip0";
+int const HallSensor::pin = 24;
 
 // setup GPIO chip and pin access for the hall sensor
 HallSensor::HallSensor(
@@ -40,21 +40,21 @@ bool HallSensor::readValue() const {
 
 
 // default wattmeter configuration parameters
-const float Wattmeter::the_shunt_ohms = 0.01;
-const float Wattmeter::the_max_expected_amps = 4;
-const int Wattmeter::the_i2c_address = 0x40;
-const char* Wattmeter::the_i2c_bus = "/dev/i2c-4";
-const int Wattmeter::the_voltage_range = RANGE_16V;
-const int Wattmeter::the_gain = GAIN_1_40MV;
-const int Wattmeter::the_bus_adc = ADC_12BIT;
-const int Wattmeter::the_shunt_adc = ADC_128SAMP;
+float const Wattmeter::the_shunt_ohms = 0.01;
+float const Wattmeter::the_max_expected_amps = 4;
+int const Wattmeter::the_i2c_address = 0x40;
+char const * Wattmeter::the_i2c_bus = "/dev/i2c-4";
+int const Wattmeter::the_voltage_range = RANGE_16V;
+int const Wattmeter::the_gain = GAIN_1_40MV;
+int const Wattmeter::the_bus_adc = ADC_12BIT;
+int const Wattmeter::the_shunt_adc = ADC_128SAMP;
 
 // setup i2c access for the wattmeter
 Wattmeter::Wattmeter(
     float shunt_ohms,
     float max_expected_amps,
     int i2c_address,
-    const char* i2c_bus,
+    char const * i2c_bus,
     int voltage_range,
     int gain,
     int bus_adc,
