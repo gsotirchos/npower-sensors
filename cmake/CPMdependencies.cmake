@@ -8,6 +8,6 @@ CPMAddPackage(
 )
 
 CPMAddPackage(
-    GITHUB_REPOSITORY 7555G/ina219
+    GITHUB_REPOSITORY gsotirchos/ina219
     GIT_TAG devel
 )
